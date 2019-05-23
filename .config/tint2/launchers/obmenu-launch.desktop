@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=rofi
+GenericName=rofi
+Comment=rofi
+Exec=rofi -show drun
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;
+Icon=manjaro
+

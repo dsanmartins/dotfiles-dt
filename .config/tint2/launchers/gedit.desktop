@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=gedit
+GenericName=Text Editor
+Comment=Edit text files
+Exec=gedit %U
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;
+Icon=accessories-text-editor
+Categories=GNOME;GTK;Utility;TextEditor;
+

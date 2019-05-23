@@ -1,0 +1,432 @@
+# Date   : Tue Nov 28 22:23:25 CST 2017
+# Author : abel-abel
+
+# Most of the configuration are copied from:
+# http://zensites.net/fvwm/guide/
+# I only changed/added/remove some configurations.
+
+# ==================================================
+#           $HOME/.fvwm/config
+
+SetEnv img_home $[HOME]/Pictures
+SetEnv fvwm_home $[HOME]/.fvwm
+SetEnv fvwm_img $[fvwm_home]/images
+SetEnv fvwm_icon $[fvwm_img]/icons
+SetEnv fvwm_wallpaper $[fvwm_img]/wallpaper
+
+SetEnv fvwm_music_player /usr/bin/deadbeef
+SetEnv fvwm_video_player /usr/bin/vlc
+SetEnv fvwm_editor /usr/bin/geany
+SetEnv fvwm_ss /usr/bin/ss-qt5
+
+ImagePath $[fvwm_icon]:$[fvwm_icon];.png:$[fvwm_wallpaper]:+
+
+DesktopSize 3x3
+DesktopName 0 Main
+DesktopName 1 Code
+DesktopName 2 Read
+
+EdgeScroll 50 50
+EdgeResistance 10
+EdgeThickness 5
+
+ClickTime 350
+MoveThreshold 3
+Style * SloppyFocus, MouseFocusClickRaises
+
+EwmhBaseStruts 62 162 0 48
+IgnoreModifiers L25
+SnapGrid 20 20
+
+# Function template (emacs yasnippet: fvwmapp)
+
+# DestroyFunc Fvwm-hello
+# AddToFunc Fvwm-hello
+# + I (immediately)
+# + C (click)
+# + D (double click)
+# + M (move)
+# + H (hold)
+
+DestroyFunc FvwmRofi
+AddToFunc FvwmRofi
++ I Exec exec rofi -show run
+
+DestroyFunc FvwmTerm
+AddToFunc FvwmTerm
++ I Exec exec termite
+
+DestroyFunc FvwmBrowser
+AddToFunc FvwmBrowser
++ I Exec exec firefox
+
+DestroyFunc FvwmEditor
+AddToFunc FvwmEditor
++ I Exec exec $[fvwm_editor]
+
+DestroyFunc FvwmSS
+AddToFunc FvwmSS
++ I Exec exec fvwm_ss
+
+DestroyFunc FvwmMusicPlayer
+AddToFunc FvwmMusicPlayer
++ I Exec exec $[fvwm_music_player]
+
+DestroyFunc FvwmVideoPlayer
+AddToFunc FvwmVideoPlayer
++ I Exec exec $[fvwm_video_player]
+
+DestroyFunc FvwmObs
+AddToFunc FvwmObs
++ I Exec exec obs
+
+DestroyFunc FvwmRecord
+AddToFunc FvwmRecord
++ I Exec exec simplescreenrecorder
+
+DestroyFunc FvwmScreenkey
+AddToFunc FvwmScreenkey
++ I Exec exec screenkey
+
+DestroyFunc FvwmHtop
+AddToFunc FvwmHtop
++ I Exec exec termite -e htop
+
+DestroyFunc FvwmChat
+AddToFunc FvwmChat
++ I Exec exec /usr/bin/hexchat
+
+DestroyFunc FvwmGimp
+AddToFunc FvwmGimp
++ I Exec exec /usr/bin/gimp
+
+DestroyFunc FvwmShutdown
+AddToFunc FvwmShutdown
++ I Exec exec /sbin/shutdown -h now
+
+DestroyFunc FvwmLaunch
+AddToFunc FvwmLaunch
++ I Exec exec xfce4-appfinder
+
+DestroyFunc FvwmFileManager
+AddToFunc FvwmFileManager
++ I Exec exec pcmanfm
+
+DestroyFunc FvwmDeadbeefPrev
+AddToFunc FvwmDeadbeefPrev
++ I Exec exec deadbeef --prev
+
+DestroyFunc FvwmDeadbeefStop
+AddToFunc FvwmDeadbeefStop
++ I Exec exec deadbeef --stop
+
+DestroyFunc FvwmDeadbeefStart
+AddToFunc FvwmDeadbeefStart
++ I Exec exec deadbeef --start
+
+DestroyFunc FvwmDeadbeefNext
+AddToFunc FvwmDeadbeefNext
++ I Exec exec deadbeef --next
+
+DestroyFunc FvwmIconifyOrShade
+AddToFunc FvwmIconifyOrShade
++ C Iconify
++ D WindowShade
+
+DestroyFunc FvwmIconify
+AddToFunc FvwmIconify
++ C Iconify
+
+DestroyFunc FvwmMove
+AddToFunc FvwmMove
++ M Move
+
+DestroyFunc FvwmResize
+AddToFunc FvwmResize
++ M Resize
+
+DestroyFunc FvwmWindowScreenshot
+AddToFunc   FvwmWindowScreenshot
++ I ThisWindow (!Shaded !Iconic Iconifiable) \
+  Exec import -window $[w.id] -quality 100 -silent \
+  "$[img_home]/screenshot/screenshot-`date +%F[%R]`.$[w.id].jpg"
+
+DestroyFunc FvwmDesktopScreenshot
+AddToFunc   FvwmDesktopScreenshot
++ I Exec sleep $0; import -window root -quality 100 -silent \
+  "$[img_home]/screenshot/screenshot-`date +%F[%R]`.jpg"
+
+DestroyFunc InitFunction
+AddToFunc InitFunction
+# will cause problems when move windows across pages
++ I Exec exec compton &
++ I Exec exec feh --bg-scale $[fvwm_wallpaper]/breath_edited_by_kn8fury-dazpiwg.png
++ I Exec exec rofi -show run
+# + I FvwmTerm
+# + I FvwmMusicPlayer
+# + I FvwmBrowser
+# + I Exec exec xscreensaver
+
+DestroyFunc StartFunction
+AddToFunc   StartFunction
++ I Module FvwmPager 0 2
++ I Module FvwmButtons MyButtons
++ I Module FvwmButtons MyButtons2
+
+DestroyFunc RestartFunction
+AddToFunc   RestartFunction
++ I Module FvwmTaskBar
+
+DestroyFunc FvwmWindowShade
+AddToFunc FvwmWindowShade
++ I WindowShade $0
+
+DestroyFunc FvwmMaximize
+AddToFunc FvwmMaximize
++ I Maximize $0 $1
+
+DestroyFunc FvwmDeleteOrDestroy
+AddToFunc FvwmDeleteOrDestroy
++ C Delete
++ D Destroy
+
+# Template
+# Key X Context Modifier Action
+# Modifier is any combination of the following:
+# (A)ny, (C)ontrol, (S)hift, (M)eta, (N)othing, or 1-5, representing the X Modifiers mod1-mod5 (man xmodmap).
+Key Super_L A S FvwmTerm
+Key F1 A M Menu FvwmRootMenu
+Key F2 A M FvwmLaunch
+Key F4 A M Close
+Key F11 A C FvwmMaximize 100 100
+
+# Mouse 3 R A Menu FvwmWindowOpsMenu
+Mouse 4 T A FvwmWindowShade True
+Mouse 5 T A FvwmWindowShade False
+
+Mouse 3 I A FvwmIconify
+Mouse 3 T A FvwmIconify
+
+Mouse 3 W M FvwmMove
+Mouse 3 W S FvwmResize
+
+Mouse 1 R A Menu FvwmRootMenu
+Mouse 3 R A Menu FvwmOpsMenu
+
+Mouse 1 5 A FvwmMaximize 100 100
+Mouse 2 5 A FvwmMaximize 0 100
+Mouse 3 5 A FvwmMaximize 100 0
+
+Mouse 1 3 A FvwmIconifyOrShade
+
+Mouse 1 1 A FvwmDeleteOrDestroy
+
+# Colorset 6 fg #343434, bg #ebebeb	# title
+# Colorset 3 fg #400c04, bg #d16952	# red
+# Colorset 4 fg #ad8529, bg #e5bf45	# yellow
+# Colorset 5 fg #2a520d, bg #76c24c	# green
+
+Colorset 3 fg #A9FFDE, bg #e6e7d7       # fg: darkblue, bg: milk white
+Colorset 4 fg White, bg #a6a797  	# fg: black, bg: gray
+Colorset 5 fg White, bg Black
+
+DestroyDecor MyDecor
+AddToDecor   MyDecor
++ TitleStyle LeftJustified Height 18
++ BorderStyle Simple -- NoInset Flat
++ ButtonStyle All -- UseTitleStyle
++ TitleStyle -- Flat
+
++ ButtonStyle 1 ActiveUp Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
++ ButtonStyle 1 ActiveDown Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
++ ButtonStyle 1 Inactive Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
+
++ ButtonStyle 3 ActiveUp Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
++ ButtonStyle 3 ActiveDown Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
++ ButtonStyle 3 Inactive Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
+
++ ButtonStyle 5 ActiveUp Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
++ ButtonStyle 5 ActiveDown Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
++ ButtonStyle 5 Inactive Vector 7 30x30@3 30x60@3 60x60@3 60x30@3 30x30@3 30x35@3 60x35@3 -- Flat
+
+
+DestroyDecor UkkostaDecor
+AddToDecor   UkkostaDecor
++ TitleStyle LeftJustified Height 24
++ ButtonStyle 1 \
+        ActiveUp     (Pixmap $[fvwm_img]/button/close-activeup.png -- Flat) \
+        ActiveDown   (Pixmap $[fvwm_img]/button/close-activedown.png -- Flat) \
+        Inactive     (Pixmap $[fvwm_img]/button/inactive.png -- Flat)
++ ButtonStyle 3 \
+        ActiveUp     (Pixmap $[fvwm_img]/button/iconify-activeup.png -- Flat) \
+        ActiveDown   (Pixmap $[fvwm_img]/button/iconify-activedown.png -- Flat) \
+        Inactive     (Pixmap $[fvwm_img]/button/inactive.png -- Flat)
++ ButtonStyle 5 \
+        ActiveUp     (Pixmap $[fvwm_img]/button/maximize-activeup.png -- Flat) \
+        ActiveDown   (Pixmap $[fvwm_img]/button/maximize-activedown.png -- Flat) \
+        Inactive     (Pixmap $[fvwm_img]/button/inactive.png -- Flat)
++ ButtonStyle 1 - Clear
++ ButtonStyle 3 - Clear MwmDecorMin
++ ButtonStyle 5 - Clear MwmDecorMax
++ TitleStyle AllActive MultiPixmap \
+        Main AdjustedPixmap $[fvwm_img]/decor/title-main-active.xpm, \
+        LeftEnd AdjustedPixmap $[fvwm_img]/decor/title-leftend-active.xpm, \
+        RightEnd AdjustedPixmap $[fvwm_img]/decor/title-rightend-active.xpm, \
+        UnderText AdjustedPixmap $[fvwm_img]/decor/title-undertext-active.xpm, \
+        LeftOfText AdjustedPixmap $[fvwm_img]/decor/title-leftoftext-active.xpm, \
+        RightOfext AdjustedPixmap $[fvwm_img]/decor/title-rightoftext-active.xpm
++ TitleStyle AllInactive MultiPixmap \
+        Main AdjustedPixmap $[fvwm_img]/decor/title-main-inactive.xpm, \
+        LeftEnd AdjustedPixmap $[fvwm_img]/decor/title-leftend-inactive.xpm, \
+        RightEnd AdjustedPixmap $[fvwm_img]/decor/title-rightend-inactive.xpm, \
+        UnderText AdjustedPixmap $[fvwm_img]/decor/title-undertext-inactive.xpm, \
+        LeftOfText AdjustedPixmap $[fvwm_img]/decor/title-leftoftext-inactive.xpm, \
+        RightOfext AdjustedPixmap $[fvwm_img]/decor/title-rightoftext-inactive.xpm
++ TitleStyle -- Flat
++ BorderStyle Simple -- NoInset Flat
++ ButtonStyle All -- UseTitleStyle
+
+Style "*" UseDecor UkkostaDecor
+Style "*" Font "xft:Sans:Bold:size=9:minspace=False:antialias=True"
+# Style "*" Font "xft:WenQuanYi Zen Hei Mono:size=10"
+Style "*" BorderWidth 1, HandleWidth 1
+Style "*" MWMBorder, FirmBorder
+Style "*" Colorset 4
+Style "*" HilightColorset 3
+Style "*" BorderColorset 5
+Style "*" HilightBorderColorset 4
+
+# Colorset 7 fg Black, bg #e6e7d7, sh Black, hi #202070
+Colorset 7 fg White, bg #272727, sh Black, hi #272727
+Colorset 8 fg #109567, bg #e6e7d7, sh Black, hi #272727
+
+MenuStyle * PopupDelayed, PopupDelay 300, PopdownImmediately
+MenuStyle * PopupOffset -5 100, TitleWarpOff
+MenuStyle * TitleUnderlines2, SeparatorsLong, TrianglesSolid
+MenuStyle * AnimationOff, AutomaticHotkeysOff
+MenuStyle * BorderWidth 2
+MenuStyle * PopupAsSubmenu, HoldSubmenus, SubmenusRight
+MenuStyle * ItemFormat "%|%5.5i%1.3l%2.3>%|"
+MenuStyle * VerticalItemSpacing 1 1, VerticalTitleSpacing 2 2
+MenuStyle * MenuColorset 7
+MenuStyle * ActiveFore, Hilight3DOff
+MenuStyle * ActiveColorset 8
+MenuStyle * Font "Shadow=0:xft:Sans:Bold:size=8:antialias=True"
+
+PipeRead fvwm-menu-xlock
+PipeRead fvwm-menu-desktop --enable-mini-icons --desktop kde
+
+DestroyMenu FvwmRootMenu
+AddToMenu FvwmRootMenu "FVWM" Title
++ "Run%menu/find.svg%" FvwmRofi
++ "Applications%menu/applications.svg%" Popup FvwmProgramsMenu
++ "Lock%menu/lock.png%" Popup XLockMenu
++ "FVWM Console%menu/terminal.png%"  Module FvwmConsole
++ "XDGMenu" Popup XDGMenu
++ "" Nop
++ "Restart Fvwm%menu/restart.png%" Restart
++ "Quit Fvwm%menu/quit.png%" Quit
+
+DestroyMenu FvwmProgramsMenu
+AddToMenu   FvwmProgramsMenu "=w=" Title
++ "File%24x24/thunar.png%" FvwmFileManager
++ "Editor%24x24/geany.png%" FvwmEditor
++ "Browser%24x24/firefox.png%" FvwmBrowser
++ "Deadbeef%24x24/deadbeef.png%" FvwmMusicPlayer
++ "Gimp%24x24/gimp.png%"  FvwmGimp
++ "Hexchat%24x24/hexchat.png%"  FvwmChat
+
+DestroyMenu FvwmOpsMenu
+AddToMenu FvwmOpsMenu "^o^" Title
++ "(Un)Stick%menu/window-stick.xpm%"  Stick
++ "Identify%menu/window-identify.xpm%"  Module FvwmIdent
++ "%menu/window.xpm%Window Screenshot"  Pick (CirculateHit) FvwmWindowScreenshot
++ "%menu/display.xpm%Screenshot" FvwmDesktopScreenshot 5
++ "Shutdown%menu/shutdown.svg%" FvwmShutdown
+
+# Colorset 9 fg rgb:00/00/00, hi rgb:00/00/00, sh rgb:00/00/00, bg rgb:e9/e9/d9
+Colorset 9 RootTransparent, fg Black, bg average, sh Black, \
+ hi #202070, Tint White 30, bgTint White 60
+Colorset 10 fg rgb:00/00/00, hi rgb:dd/00/00, sh rgb:dd/00/00, bg rgb:fb/fc/ec
+
+DestroyModuleConfig FvwmIdent: *
+*FvwmIdent: Colorset 9
+*FvwmIdent: Font "xft:Sans:Bold:size=12:antialias=True"
+
+Style "FvwmPager" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, FixedPosition, FixedSize, !Iconifiable
+# StaysOnTop
+DestroyModuleConfig FvwmPager: *
+*FvwmPager: Geometry 120x300-0+0
+*FvwmPager: Colorset * 7
+*FvwmPager: HilightColorset * 9
+*FvwmPager: BalloonColorset * 7
+*FvwmPager: WindowColorsets 7 9
+*FvwmPager: Font "xft:Sans:Bold:pixelsize=12:minspace=True:antialias=True"
+*FvwmPager: Balloons All
+*FvwmPager: BalloonFont "xft:Sans:Bold:pixelsize=12:minspace=True:antialias=True"
+*FvwmPager: BallonYOffset +2
+*FvwmPager: Window3dBorders
+*FvwmPager: MiniIcons
+*FvwmPager: UseSkipList
+*FvwmPager: Rows 3
+*FvwmPager: Columns 1
+
+Style "MyButtons" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+
+DestroyModuleConfig MyButtons: *
+*MyButtons: Geometry 420x40+0-0
+*MyButtons: Colorset 7
+*MyButtons: Rows 1
+*MyButtons: Columns 38
+*MyButtons: Frame 0
+*MyButtons: Font "Shadow=3:xft:Sans:Bold:pixelsize=14:minspace=True:antialias=True"
+*MyButtons: (2x1, Frame 0, Title(Center) "")
+*MyButtons: (5x1, Frame 0, Icon 24x24/24x24.png, \
+  Action(Mouse 1) "FvwmRofi", \
+  Action(Mouse 3) "FvwmRofi)
+*MyButtons: (5x1, Frame 0, Icon 24x24/thunar.png, \
+  Action(Mouse 1) "FvwmFileManager")
+*MyButtons: (5x1, Frame 0, Icon 24x24/firefox.png, \
+  Action(Mouse 1) "FvwmBrowser")
+*MyButtons: (5x1, Frame 0, Icon 24x24/terminal.png, \
+  Action(Mouse 1) "FvwmTerm", \
+  Action(Mouse 3) "FvwmTerm")
+*MyButtons: (5x1, Frame 0, Icon 24x24/geany.png, \
+  Action(Mouse 1) "FvwmEditor")
+*MyButtons: (5x1, Frame 0, Icon 24x24/deadbeef.png, \
+  Action(Mouse 1) "FvwmMusicPlayer")
+*MyButtons: (5x1, Frame 0, Icon 24x24/vlc.png, \
+  Action(Mouse 1) "FvwmVideoPlayer")
+*MyButtons: (5x1, Frame 0, Icon 24x24/gimp.png, \
+  Action(Mouse 1) "FvwmGimp")
+*MyButtons: (5x1, Frame 0, Icon 24x24/hexchat.png, \
+  Action(Mouse 1) "FvwmChat")
+*MyButtons: (5x1, Frame 0, Icon 24x24/htop.png, \
+  Action(Mouse 1) "FvwmHtop")
+*MyButtons: (1x1, Frame 0)
+
+Style "MyButtons2" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+
+*MyButtons2: Geometry 220x40-0-0
+*MyButtons2: Colorset 7
+*MyButtons2: Rows 1
+*MyButtons2: Columns 5
+*MyButtons2: Frame 0
+*MyButtons2: Font "Shadow=3:xft:Sans:Bold:pixelsize=14:minspace=True:antialias=True"
+*MyButtons2: (2x1, Frame 0, Title(Center) "")
+*MyButtons2: (5x1, Frame 0, Icon 24x24/deadbeef-prev.png, \
+  Action(Mouse 1) "FvwmDeadbeefPrev")
+*MyButtons2: (5x1, Frame 0, Icon 24x24/deadbeef-stop.png, \
+  Action(Mouse 1) "FvwmDeadbeefStop")
+*MyButtons2: (5x1, Frame 0, Icon 24x24/deadbeef-start.png, \
+  Action(Mouse 1) "FvwmDeadbeefStart")
+*MyButtons2: (5x1, Frame 0, Icon 24x24/deadbeef-next.png, \
+  Action(Mouse 1) "FvwmDeadbeefNext")
+*MyButtons2: (5x1, Frame 0, Icon 24x24/logout.png, \
+  Action(Mouse 1) "Quit")
+*MyButtons2: (1x1, Frame 0)
+
+Style "xclock" NoTitle, FixedPosition

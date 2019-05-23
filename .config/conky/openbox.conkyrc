@@ -1,0 +1,103 @@
+
+own_window yes
+own_window_type normal
+# own_window_argb_visual yes
+# own_window_argb_value 125
+own_window_transparent no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour 222222
+own_window_class Conky
+own_window_title Monitor Conky
+
+gap_x 3580
+gap_y 60
+alignment tl
+minimum_width 220
+
+use_xft yes
+xftfont Cantarell:size=9
+xftalpha 1
+override_utf8_locale yes
+draw_shades no #yes
+default_shade_color 000000
+draw_outline no
+default_outline_color 000000
+
+color2 ededed
+color3 109567
+cpu_avg_samples  2
+default_color bbbbbb
+
+draw_borders no #yes
+
+stippled_borders 5
+border_inner_margin 15
+border_outer_margin 0
+border_width 1
+
+background yes
+no_buffers yes
+imlib_cache_size 0
+
+double_buffer yes
+update_interval 1
+
+
+TEXT
+${voffset 8}$color${font Cantarell:size=16}${time %A}$font${voffset -8}$alignr${color 109567}${font Cantarell:size=38}${time %e}$font
+$color${voffset -30}$color${font Cantarell:size=18}${time %B}$font${voffset -3} $color${font Cantarell:size=20}${time %Y}$font
+#${voffset 10}$alignr$color Kraków (PL) ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ EPKK temperature temperature 15}°C
+#
+${voffset 10}${goto 12}${color3}${font Cantarell:size=9:bold}CPU$alignr${color2}${font}$cpu%
+$color2${goto 12}${cpubar 4,200}
+${voffset 5}${goto 12}$font$color2${top name 1}$alignr$color${top cpu 1}%
+${goto 12}$color2${top name 2}$alignr$color${top cpu 2}%
+${goto 12}$color2${top name 3}$alignr$color${top cpu 3}%
+${goto 12}$color2${top name 4}$alignr$color${top cpu 4}%
+#
+${voffset 10}${goto 12}${color3}${font Cantarell:size=9:bold}RAM$alignr${color2}${font}$mem/$memmax
+$color2${goto 12}${membar 4,200}
+${goto 12}${voffset 5}$color2${top_mem name 1}$alignr$color${top_mem mem_res 1}
+${goto 12}$color2${top_mem name 2}$alignr$color${top_mem mem_res 2}
+${goto 12}$color2${top_mem name 3}$alignr$color${top_mem mem_res 3}
+${goto 12}$color2${top_mem name 4}$alignr$color${top_mem mem_res 4}
+#
+${voffset 10}$alignr disk ${color2}${fs_used /} - ${fs_size /}
+$alignr$color memory ${color2}$mem - $memmax
+#${alignr}${color2}${font Cantarell:size=9}swap $swapmax - $swap
+${voffset 10}$alignr${execi 1200 whoami}@${nodename}
+${alignr}${color2}${font Cantarell:size=9}uptime ${color}${uptime_short}
+$alignr${color} Manjaro Linux ${execi 10000 awk -F'=' '/DISTRIB_RELEASE=/ {printf $2" "} /CODENAME/ {print $2}' /etc/lsb-release}
+${alignr}${color2}${font Cantarell:size=9}${alignr}kernel ${color}${kernel}
+${alignr}${color2}${font Cantarell:size=9}${alignr}filesystem ${color}${fs_type}
+${voffset 10}${alignr}${color} packages installed: ${color2}${execi 10000 pacman -Q | wc -l}
+${alignr}${color} available updates ${color CC2A2E}${font Cantarell:bold:size=10}${execpi 10800 checkupdates | wc -l}${font}${color}
+${alignr}${color} last updated on: ${font Cantarell:size=8}${color2}${execi 10000 grep "starting full system upgrade" /var/log/pacman.log | tail -n1| cut --bytes=2-17}
+${voffset 14}${color3}${font Cantarell:size=9:bold}APPLICATIONS${font}${voffset -6}
+${color2}${hr 1}${voffset -6}
+${color2}terminal  ${alignr}${color}super+enter
+${color2}menu  ${alignr}${color}super+spacebar
+${color2}run command...  ${alignr}${color}super+r
+${color2}file manager  ${alignr}${color}super+f
+${color2}web browser ${alignr}${color}super+w
+${color2}volume control  ${alignr}${color}super+v
+${color2}lock screen  ${alignr}${color}super+l
+${color2}xkill  ${alignr}${color}shift+super+k
+${color2}exit openbox  ${alignr}${color}shift+super+q
+${voffset 10}${color3}${font Cantarell:size=9:bold}WINDOWS${font}${voffset -6}
+${color2}${hr 1}${voffset -6}
+${color2}close ${alignr} ${color}shift+super+c
+${color2}minimalize ${alignr} ${color}alt+up arrow
+${color2}maximize ${alignr} ${color}alt+down arrow
+${color2}lower ${alignr} ${color}alt+esc
+${color2}show desktop ${alignr} ${color}super+d
+${color2}toggle borders ${alignr} ${color}shift+super+b
+${color2}toggle fullscreen ${alignr} ${color}shift+super+enter
+${color2}resize/move ${alignr} ${color}super+arrows
+${color2}window placement:
+${color2} - half screen ${alignr} ${color}super+alt+arrows
+${color2} - 1/4 screen ${alignr} ${color}super+alt+keypad[1..9]
+${color2} - 1/9 screen ${alignr} ${color}super+keypad[1..9]
+${voffset 10}${color3}${font Cantarell:size=9:bold}DESKTOPS${font}${voffset -6}
+${color2}${hr 1}${voffset -6}
+${color2}go to desktop ${alignr} ${color}super+[F1..F4]

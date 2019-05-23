@@ -1,0 +1,20 @@
+#!/bin/bash
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |  	http://www.youtube.com/c/DistroTube
+# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
+# 
+# Use dmenu to open and edit a file from a given list.
+# I use this to quickly open my st source files in vim.
+
+# Global variables:
+FILES=${1:-"/home/dt/st"}
+DMENU='dmenu -nb #1D2330 -nf #AD69AF -sb #84598D -sf #d1d7e1 -l -i'
+EDITOR='st -e vim'
+# Show list of options
+choice=$(ls -a "${FILES}" | $DMENU -p "« st » source code:")
+
+if [ $choice ]; then
+    $EDITOR ${FILES}/${choice}
+fi

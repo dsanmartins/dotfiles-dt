@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+
+<JWM>
+
+	<RootMenu height="15" onroot="123">
+
+     <Include>$HOME/.jwmrc-mjwm</Include>
+
+	 <Separator/>
+	   <Dynamic icon="gnome-documents" label="Recently used">exec: /home/dt/.jwm/menus/recent-files.sh</Dynamic> 
+	 <Separator/>
+	  <Program icon="emblem-readonly.png" label="Lock">
+	  xscreensaver-command -activate
+	  </Program>
+	 <Separator/>
+	 <Program label="Terminal" icon="terminal">termite</Program>
+	 <Restart label="Restart" icon="system-reboot.png"/>
+	 <Exit label="Exit" confirm="true" icon="system-log-out.png"/>
+	 <Program icon="system-shutdown.png" label="Shutdown">sh /home/user/scripts/shutdown.sh</Program>
+
+	</RootMenu>
+
+	<Tray  x="0" y="-1" height="32" autohide="false">
+
+	<TrayButton icon="manjaro">root:1</TrayButton>
+
+
+	<Pager labeled="true"/>
+
+	<TaskList maxwidth="256"/>
+
+	<Dock/>
+
+	<TrayButton popup="Terminal" icon="xterm">exec:termite</TrayButton>
+	<TrayButton popup="Volume Control" icon="unity-tweak-tool.png">exec:pavucontrol</TrayButton>
+	<TrayButton popup="File Manager" icon="file-manager">exec:/usr/bin/pcmanfm</TrayButton>
+	<TrayButton popup="Calculator" icon="applications-mathematics.png">exec:gcalctool</TrayButton>
+	<TrayButton popup="Leafpad" icon="leafpad.png">exec:leafpad</TrayButton>
+	<TrayButton popup="Midori Web Browser" icon="qupzilla.png">exec:midori</TrayButton>
+	<TrayButton popup="Sylpheed Email" icon="thunderbird.png">exec:sylpheed</TrayButton>
+	<TrayButton icon="gaupol.png">showdesktop</TrayButton>
+
+
+	<Clock format="%a %b %d %H:%M %p">exec:termite -e tty-clock</Clock>
+
+	</Tray>
+
+   	<!-- Visual Styles -->
+
+   	<WindowStyle>
+
+      	 <Font>Sans-8:bold</Font>
+    	 <Width>3</Width>
+    	 <Height>22</Height> 
+
+    	<Active>
+      	 <Text>#ededed</Text>    
+      	 <Title>#000000:#808080</Title>
+	     <Background>#272727</Background> 
+      	 <Outline>#000000</Outline>
+    	</Active>
+
+    	<Inactive>
+      	 <Text>#A9A9A9</Text>
+      	 <Title>#808080:#000000</Title>  
+	     <Background>#272727</Background>        
+      	 <Outline>#000000</Outline>
+    	</Inactive>
+
+   	</WindowStyle>
+
+   	<TaskListStyle>
+     <Font>Sans-8:bold</Font>
+  	 <ActiveForeground>#ededed</ActiveForeground>
+  	 <ActiveBackground>#109567:#202020</ActiveBackground>
+  	 <Background>#202020:#202020</Background>
+	</TaskListStyle>
+
+	<TrayStyle>
+     <Font>Sans-8:bold</Font>
+  	 <Foreground>#EDEDED</Foreground>
+  	 <Background>#202020</Background>
+	</TrayStyle>
+
+	<PagerStyle>
+  	 <Outline>#808080</Outline>
+  	 <Foreground>#696969</Foreground>
+  	 <Background>#A9A9A9</Background>
+  	 <Active>
+		 <Foreground>#A9A9A9</Foreground>
+  	 </Active>
+  	 <Active>
+   	    <Background>#696969</Background>
+  	 </Active>
+	</PagerStyle>
+
+	<MenuStyle>
+     <Font>Sans-8:bold</Font>
+	 <Foreground>#EDEDED</Foreground>
+	 <Background>#202020</Background>
+	 <Active>
+	   <Foreground>#ededed</Foreground>
+	   <Background>#109567</Background>
+	 </Active>
+	</MenuStyle>
+
+	<PopupStyle>
+	 <Font>Sans-9</Font>
+	 <Outline>#808080</Outline>
+	 <Foreground>#EDEDED</Foreground>
+	 <Background>#272727</Background>
+	</PopupStyle>
+
+<!--
+#000000 - Black
+#A9A9A9 - Dark Gray
+#696969 - Dim Gray
+#FFD700 - Gold
+#808080 - Web Gray
+#FFFF00 - Yellow
+-->
+
+	<IconPath>
+	 /usr/share/icons/jwm
+	</IconPath>
+
+	<Desktops width="2" height="2">
+	 <Background type="command">nitrogen --restore</Background>
+	</Desktops>
+
+	<DoubleClickSpeed>400</DoubleClickSpeed>
+
+	<DoubleClickDelta>2</DoubleClickDelta>
+
+	<FocusModel>sloppy</FocusModel>
+
+	<SnapMode distance="10">border</SnapMode>
+
+	<MoveMode>opaque</MoveMode>
+
+	<ResizeMode>opaque</ResizeMode>
+
+	<StartupCommand>xbattbar -I azure -O black -i yellow -o black -p 10 -c -t 1 -a bottom</StartupCommand>
+	<StartupCommand>nm-applet</StartupCommand>
+
+	<Key key="Up">up</Key>
+	<Key key="Down">down</Key>
+	<Key key="Right">right</Key>
+	<Key key="Left">left</Key>
+	<Key key="h">left</Key>
+	<Key key="j">down</Key>
+	<Key key="k">up</Key>
+	<Key key="l">right</Key>
+	<Key key="Return">select</Key>
+	<Key key="Escape">escape</Key>
+
+	<Key mask="A" key="Tab">next</Key>
+	<Key mask="A" key="F4">close</Key>
+	<Key mask="A" key="#">desktop#</Key>
+	<Key mask="A" key="F1">root:1</Key>
+	<Key mask="A" key="F2">window</Key>
+	<Key mask="A" key="F10">maximize</Key>
+	<Key mask="A" key="Right">rdesktop</Key>
+	<Key mask="A" key="Left">ldesktop</Key>
+	<Key mask="A" key="Up">udesktop</Key>
+	<Key mask="A" key="Down">ddesktop</Key>
+
+</JWM>
+
+

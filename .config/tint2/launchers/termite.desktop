@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=termite
+Comment=Use the command line
+Keywords=shell;prompt;command;commandline;cmd;
+TryExec=termite
+Exec=termite
+Icon=utilities-terminal
+Type=Application
+Categories=GNOME;GTK;System;TerminalEmulator;
+StartupNotify=true
+X-GNOME-SingleWindow=false
+Actions=New
+X-Ubuntu-Gettext-Domain=termite

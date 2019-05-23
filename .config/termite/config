@@ -1,0 +1,91 @@
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |    http://www.youtube.com/c/DistroTube
+# | |_| || |    http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
+
+[options]
+allow_bold = true
+#audible_bell = false
+clickable_url = true
+#dynamic_title = true
+font = UbuntuMono Nerd Font 13
+#fullscreen = true
+geometry = 700x520
+icon_name = terminal
+#mouse_autohide = false
+#scroll_on_output = false
+#scroll_on_keystroke = true
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+scrollback_lines = 10000
+#search_wrap = true
+#urgent_on_bell = true
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+browser = lynx
+
+# "system", "on" or "off"
+#cursor_blink = system
+
+# "block", "underline" or "ibeam"
+#cursor_shape = block
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# "off", "left" or "right"
+#scrollbar = off
+
+[colors]
+# If both of these are unset, cursor falls back to the foreground color,
+# and cursor_foreground falls back to the background color.
+#cursor = #dcdccc
+#cursor_foreground = #dcdccc
+
+[colors]
+foreground = #c0c5ce
+foreground_bold = #eee8d5
+cursor = #c0c5ce
+# background transparency (requires a compositor)
+background = rgba(29, 35, 48, 0.95)
+
+# if unset, will reverse foreground and background
+#highlight = #839496
+
+# colors from color0 to color254 can be set
+color0 = #1D2330
+color1 = #645377
+color2 = #AD69AF
+color3 = #B1B5C8
+color4 = #92969d
+color5 = #645377
+color6 = #AD69AF
+color7 = #B1B5C8
+color8 = #4B5665
+color9 = #84598D
+color10 = #7B8290
+color11 = #d1d7e1
+color12 = #4B5665
+color13 = #84598D
+color14 = #7B8290
+color15 = #d1d7e1
+
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+# vim: ft=dosini cms=#%s

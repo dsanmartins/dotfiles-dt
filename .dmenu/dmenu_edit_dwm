@@ -1,0 +1,22 @@
+#!/bin/bash
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |  	http://www.youtube.com/c/DistroTube
+# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
+# 
+# Use dmenu to open and edit a file from a given list.
+# I use this to quickly open my dwm source files in vim.
+
+source $HOME/.dmenurc
+
+# Global variables:
+FILES=${1:-"/home/dt/dwm"}
+DMENU='dmenu -l -i'
+EDITOR='st -e vim'
+# Show list of options
+choice=$(ls -a "${FILES}" | $DMENU -p "« dwm » source code:")
+
+if [ $choice ]; then
+    $EDITOR ${FILES}/${choice}
+fi
